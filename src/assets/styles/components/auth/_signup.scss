@@ -46,6 +46,19 @@
         width: 100%;
         margin-top: rem(20);
     }
+    .form-group-check{
+        margin-top: rem(15);
+        input{
+            vertical-align: middle;
+            margin-right: 5px;
+            font-size: 12px;
+        }
+        a{
+            text-decoration: none;
+            display: block;
+            font-size: 12px;
+        }
+    }
 }
 
 .sign__footer{
