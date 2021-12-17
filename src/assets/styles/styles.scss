@@ -1,0 +1,25 @@
+
+@import './base/settings';
+@import './base/base';
+@import './base/mixins.scss';
+
+
+/* -------------------------------------------------------------------------- */
+/*                                   Routes                                   */
+/* -------------------------------------------------------------------------- */
+@import './routes/dashBoardRoutes';
+/* -------------------------------------------------------------------------- */
+/*                                 Components                               */
+/* -------------------------------------------------------------------------- */
+// Dashboard
+@import './components/auth/login';
+@import './components/auth/signup';
+// @import './components/dashboard/menu';
+
+
+/* -------------------------------------------------------------------------- */
+/*                                  hepers                                 */
+/* -------------------------------------------------------------------------- */
+@import './helpers/loading';
+@import './helpers/scroll-bar';
+@import './helpers/otherClasses';

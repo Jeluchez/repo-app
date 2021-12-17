@@ -1,0 +1,54 @@
+.sign {
+    display: flex;
+
+    // justify-content: center;
+    &__info {
+        display: none;
+    }
+
+}
+
+.sign__container-outer {
+    padding: rem(15);
+    flex: 1 auto;
+    display: flex;
+    
+    .sign__container {
+        flex-basis: 400px;
+        margin: auto;
+    }
+    .sign__header{
+        margin-top: rem(30);
+    }
+}
+
+
+.sign__form {
+    .form-group label {
+        display: block;
+        margin-top: rem(15);
+        margin-bottom: rem(5);
+    }
+
+    .password-title {   
+        display: flex;
+        justify-content: space-between;
+
+        a span {
+            display: inline-block;
+            margin-top: rem(15)
+        }
+    }
+    .btn-register{
+        margin-top: rem(10);
+        background: $primary;
+        color: #fff;
+        width: 100%;
+        margin-top: rem(20);
+    }
+}
+
+.sign__footer{
+    text-align: center;
+    margin-top: rem(20);
+}
