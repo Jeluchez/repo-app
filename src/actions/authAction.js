@@ -14,13 +14,13 @@ export const startlogin = (data, trigerSubmit) => {
 
         if (body.ok) {
             console.log(body)
-            const { iduser: id, name, email } = body.user;
+            const { uid, name, email } = body.user;
 
             localStorage.setItem('token', body.token);
 
             dispatch(login(
                 {
-                    id,
+                    id:uid,
                     name,
                     email,
                     isloggedIn:true,

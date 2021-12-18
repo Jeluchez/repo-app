@@ -7,9 +7,9 @@ const user = {
 
 export const PrivateRoute = ({ children }) => {
 
-    // const { isloggedIn } = useSelector(state => state.auth);
+    const { isloggedIn } = useSelector(state => state.auth);
     
-    return user.isLoggedIn
+    return isloggedIn
         ? children
         : <Navigate to='/login' />
 

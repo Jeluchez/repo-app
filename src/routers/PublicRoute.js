@@ -7,10 +7,12 @@ const user = {
 
 export const PublicRoute = ({ children }) => {
 
-    // const { isloggedIn } = useSelector(state => state.auth);
+    const { isloggedIn } = useSelector(state => state.auth);
+    
+    console.log(isloggedIn)
 
-    return user.isLoggedIn
-        ? children
-        : <Navigate to='/dashboard' />
+    return isloggedIn
+        ? <Navigate to='/dashboard' />
+        : children
 }
 
