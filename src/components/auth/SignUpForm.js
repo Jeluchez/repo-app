@@ -10,21 +10,32 @@ export const SignUpForm = () => {
 
     // const { isloading } = useSelector();
     const isloading = false
-    const { register, handleSubmit, formState: { errors } } = useForm();
+    const { register, handleSubmit, watch, formState: { errors } } = useForm();
     const [success, setSuccess] = useState();
+
+    const email = watch('email', 'Susana Paz');
+    const password = watch('password', '123456');
+    const name = watch('name', 'test6@test.com')
 
     // flag to enable text "El correo o el usuario es incorrecto"
     const submitRef = useRef();
     const isSuccessRef = useRef();
 
-    const onSubmit = (data) => dispatch(startlogin(data, (success) => {
-        submitRef.current = true;
-        isSuccessRef.current = success;
-        isSuccessRef.current = isSuccessRef.current ? false : true
-    }));
+    const onSubmit = async (e) => {
+        const res = dispatch(startlogin({name, email, password}));
+        console.log(res);
+        // if (res !== true) {
+        //     Swal.fire('Error', res, 'No pudimos verificar su cuenta. Intente de nuevo');
+        //     return;
+        // }
+
+        // history.push("/auth/notificationEmail");
+    }
+    // const onSubmit = (data) => dispatch(startlogin(data, (success) => {
+    //     submitRef.current = true;
+    // }));
 
     return (
-        /* "handleSubmit" will validate your inputs before invoking "onSubmit" */
         <div className="sign__form">
             {
                 (isSuccessRef.current && submitRef.current) &&

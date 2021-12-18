@@ -11,12 +11,17 @@ import { PrivateRoute } from './PrivateRoute';
 import { LoginScreen } from '../components/auth/LoginScreen';
 import { DashBoardRoute } from './DashBoardRoute';
 import { SignUpScreen } from '../components/auth/SignUpScreen';
+import { validateToken } from '../actions/authAction';
 
 export const AppRouter = () => {
 
     const dispatch = useDispatch();
 
-    // const [isLoggedIn, setIsLoggedIn] = useState(false);
+    
+    // useEffect( () => {
+    //     dispatch(validateToken());
+    // },[dispatch])
+    
 
 
     return (

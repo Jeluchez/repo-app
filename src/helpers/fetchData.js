@@ -1,29 +1,54 @@
-const baseUrl = 'http://localhost:5000/api';
+const baseUrl = 'http://localhost:5000/api/v1';
 
-export const fetchData = async (endPoint = '', data, method = 'GET') => {
-    const url = `${baseUrl}/${endPoint}`;
+export const fetchData = async( endpoint, data, method = 'GET' ) => {
+
+    const url = `${ baseUrl }/${ endpoint }`;
+    
     try {
-        if (method === 'GET') {
-            const res = await fetch(url);
-            return await res.json();
+        if ( method === 'GET' ) {
+            const resp = await fetch( url );
+            return await resp.json();
         } else {
-           
-            const res = await fetch(url, {
+            const resp = await fetch( url, {
                 method,
                 headers: {
-                    'content-type': 'application/json'
+                    'Content-type': 'application/json'
                 },
-                body: JSON.stringify(data)
-            });
-
-            if(!res.ok){
-                return { ok: false, error: (await res.json())['error']}
-            }
-            return { ok: true, data: await res.json()}
+                body: JSON.stringify( data )
+            })
+    
+            return await resp.json();
         }
-
     } catch (error) {
-        return { ok: false, error }
+        throw new Error(error);
+    }
+    
+}
+
+
+export const fetchWithToken = async( endpoint, data, method = 'GET' ) => {
+
+    const url = `${ baseUrl }/${ endpoint }`;
+    const token = localStorage.getItem('token') || '';
+
+    if ( method === 'GET' ) {
+        const resp = await fetch( url, {
+            headers: {
+                'x-token': token
+            }
+        });
+        return await resp.json();
+    } else {
+        const resp = await fetch( url, {
+            method,
+            headers: {
+                'Content-type': 'application/json',
+                'x-token': token
+            },
+            body: JSON.stringify( data )
+        })
+
+        return await resp.json();
     }
 
 }

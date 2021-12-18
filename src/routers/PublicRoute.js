@@ -1,3 +1,4 @@
+import { useSelector } from 'react-redux';
 import { Route, Navigate } from 'react-router-dom';
 
 const user = {
@@ -5,6 +6,8 @@ const user = {
 }
 
 export const PublicRoute = ({ children }) => {
+
+    // const { isloggedIn } = useSelector(state => state.auth);
 
     return user.isLoggedIn
         ? children

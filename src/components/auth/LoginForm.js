@@ -7,28 +7,25 @@ import { startlogin } from '../../actions/authAction';
 export const LoginForm = () => {
 
     const dispatch = useDispatch();
-    
+    const { isloggedIn } = useSelector(state => state.auth);
     // const { isloading } = useSelector();
     const isloading = false 
     const { register, handleSubmit, formState: { errors } } = useForm();
     const [success, setSuccess] = useState();
 
-    // flag to enable text "El correo o el usuario es incorrecto"
+    // flag to know if the btn "Send" was trigger
     const submitRef = useRef();
-    const isSuccessRef = useRef();
 
-    const onSubmit = (data) => dispatch(startlogin(data, (success) => {
+    const onSubmit = (data) => dispatch(startlogin(data, () => {
         submitRef.current=true;
-        isSuccessRef.current = success;
-        isSuccessRef.current=  isSuccessRef.current ? false :true 
-    }));;
+    }));
 
     return (
         /* "handleSubmit" will validate your inputs before invoking "onSubmit" */
         <div className="login__form">
             {
-                (isSuccessRef.current && submitRef.current) &&
-                <p className="text-danger text-error mb-0 text-center">El correo o el usuario es incorrecto</p>
+                (submitRef.current && isloggedIn) &&
+                <p className="text-danger text-error mb-0 text-center">Email or Password incorrect</p>
             }
             <form onSubmit={handleSubmit(onSubmit)}>
 
@@ -67,7 +64,7 @@ export const LoginForm = () => {
                                 <span className="sr-only"></span>
                             </div>
                             :
-                            'Iniciar'
+                            'Send'
 
                     }
 
