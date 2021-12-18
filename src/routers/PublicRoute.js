@@ -8,11 +8,11 @@ const user = {
 export const PublicRoute = ({ children }) => {
 
     const { isloggedIn } = useSelector(state => state.auth);
-    
+
     console.log(isloggedIn)
 
     return isloggedIn
-        ? <Navigate to='/dashboard' />
+        ? <Navigate to='/profile' />
         : children
 }
 

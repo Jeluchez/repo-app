@@ -1,17 +1,20 @@
 import { useRef, useState } from 'react'
 import { useForm } from "react-hook-form";
 import { useDispatch, useSelector } from 'react-redux';
+import { useNavigate } from 'react-router';
 import { startlogin } from '../../actions/authAction';
 
 export const SignUpForm = () => {
 
 
+    let navigate = useNavigate();
     const dispatch = useDispatch();
+    const { isloggedIn } = useSelector(state => state.auth);
 
-    // const { isloading } = useSelector();
     const isloading = false
+
     const { register, handleSubmit, watch, formState: { errors } } = useForm();
-    const [success, setSuccess] = useState();
+
 
     const email = watch('email', 'Susana Paz');
     const password = watch('password', '123456');
@@ -22,14 +25,18 @@ export const SignUpForm = () => {
     const isSuccessRef = useRef();
 
     const onSubmit = async (e) => {
-        const res = dispatch(startlogin({name, email, password}));
-        console.log(res);
-        // if (res !== true) {
-        //     Swal.fire('Error', res, 'No pudimos verificar su cuenta. Intente de nuevo');
-        //     return;
-        // }
+        submitRef.current = true;
 
-        // history.push("/auth/notificationEmail");
+        dispatch(startlogin({ name, email, password }, (res) => {
+
+           
+            if (!res.ok) {
+                isSuccessRef.current = res.code
+            }
+            navigate('/profile');
+
+        }));
+
     }
     // const onSubmit = (data) => dispatch(startlogin(data, (success) => {
     //     submitRef.current = true;
@@ -38,8 +45,13 @@ export const SignUpForm = () => {
     return (
         <div className="sign__form">
             {
-                (isSuccessRef.current && submitRef.current) &&
-                <p className="text-danger text-error mb-0 text-center">El correo o el usuario es incorrecto</p>
+                (isSuccessRef.current === 400 && submitRef.current) &&
+                <p className="text-danger text-error mb-0 text-center">the user not exists</p>
+
+            }
+            {
+                (isSuccessRef.current === 403 && submitRef.current) &&
+                <p className="text-danger text-error mb-0 text-center">the passwort isn't correct</p>
             }
             <form onSubmit={handleSubmit(onSubmit)}>
 

@@ -2,7 +2,7 @@ import { fetchData, fetchWithToken } from "../helpers/fetchData.js";
 import { types } from "../types/types";
 import { finishLoading, startLoading } from "./uiActions";
 
-export const startlogin = (data, trigerSubmit) => {
+export const createUser = (data, trigerSubmit) => {
 
     delete data.checkbox;
     
@@ -10,13 +10,12 @@ export const startlogin = (data, trigerSubmit) => {
 
         dispatch(startLoading())
         console.log(data)
-        const body = await fetchData('user/new', data, 'POST');
+        const res = await fetchData('user/new', data, 'POST');
 
-        if (body.ok) {
-            console.log(body)
-            const { uid, name, email } = body.user;
+        if (res.ok) {
+            const { uid, name, email } = res.user;
 
-            localStorage.setItem('token', body.token);
+            localStorage.setItem('token', res.token);
 
             dispatch(login(
                 {
@@ -29,11 +28,46 @@ export const startlogin = (data, trigerSubmit) => {
             ))
             // trigerSubmit();
             dispatch(finishLoading())
-
         } else {
             // trigerSubmit();
             dispatch(finishLoading())
         }
+    }
+}
+
+
+
+
+export const startlogin = (data, trigerSubmit) => {
+
+    delete data.checkbox;
+    
+    return async (dispatch) => {
+
+        dispatch(startLoading())
+       
+        const res = await fetchData('user/', data, 'POST');
+        if (res.ok) {
+            const { uid, name, email} = res.user;
+            localStorage.setItem('token', res.token);
+
+            dispatch(login(
+                {
+                    id:uid,
+                    name,
+                    email,
+                    isloggedIn:true,
+                    checking:false
+                }
+            ))
+            trigerSubmit(res) 
+            dispatch(finishLoading())
+        } else {
+            trigerSubmit(res) 
+            dispatch(finishLoading())
+        }
+
+       
     }
 }
 
@@ -63,7 +97,7 @@ export const validateToken = () => {
             const { user } = resp;
 
             dispatch(login({
-                uid: user.uid,
+                uid: user.id,
                 checking: false,
                 isloggedIn: true,
                 name: user.name,

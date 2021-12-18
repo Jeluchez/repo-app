@@ -16,7 +16,7 @@ export const fetchData = async( endpoint, data, method = 'GET' ) => {
                 },
                 body: JSON.stringify( data )
             })
-    
+          
             return await resp.json();
         }
     } catch (error) {

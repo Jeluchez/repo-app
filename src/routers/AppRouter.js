@@ -18,9 +18,9 @@ export const AppRouter = () => {
     const dispatch = useDispatch();
 
     
-    // useEffect( () => {
-    //     dispatch(validateToken());
-    // },[dispatch])
+    useEffect( () => {
+        dispatch(validateToken());
+    },[dispatch])
     
 
 

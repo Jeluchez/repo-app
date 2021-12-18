@@ -1,36 +1,52 @@
 import { useRef, useState } from 'react'
 import { useForm } from "react-hook-form";
 import { useDispatch, useSelector } from 'react-redux';
+import { useNavigate } from 'react-router';
 import { startlogin } from '../../actions/authAction';
 
 
 export const LoginForm = () => {
 
+    let navigate = useNavigate();
     const dispatch = useDispatch();
     const { isloggedIn } = useSelector(state => state.auth);
     // const { isloading } = useSelector();
-    const isloading = false 
-    const { register, handleSubmit, formState: { errors } } = useForm();
-    const [success, setSuccess] = useState();
+    const isloading = false
+    const { register, handleSubmit, watch, formState: { errors } } = useForm();
+
+    const email = watch('email', 'Susana Paz');
+    const password = watch('password', '123456');
 
     // flag to know if the btn "Send" was trigger
     const submitRef = useRef();
 
-    const onSubmit = (data) => dispatch(startlogin(data, () => {
-        submitRef.current=true;
+    const onSubmit = (e) => dispatch(startlogin({ email, password }, (res) => {
+
+        if (!res.ok) {
+            submitRef.current = { isSend: true, code: res.code }
+            return;
+        }
+        navigate('/profile');
+
     }));
+
 
     return (
         /* "handleSubmit" will validate your inputs before invoking "onSubmit" */
         <div className="login__form">
             {
-                (submitRef.current && isloggedIn) &&
-                <p className="text-danger text-error mb-0 text-center">Email or Password incorrect</p>
+                (submitRef.current?.code === 400 && submitRef.current.isSend) &&
+                <p className="text-danger text-error mb-0">the user not exists</p>
+
+            }
+            {
+                (submitRef.current?.code === 403 && submitRef.current.isSend) &&
+                <p className="text-danger text-error mb-0">the passwort isn't correct</p>
             }
             <form onSubmit={handleSubmit(onSubmit)}>
 
                 <div className="form-group form-group-email">
-                    <label htmlFor="Email" className="email-title">Email Addres</label>
+                    <label htmlFor="Email" className="email-title">Email Addres{submitRef.current?.code}</label>
 
                     <input className={errors.email ? 'form-control input-password is-invalid' : 'form-control input-password'} defaultValue="" {...register("email", { required: true, pattern: /^\S+@\S+$/i })} />
 
