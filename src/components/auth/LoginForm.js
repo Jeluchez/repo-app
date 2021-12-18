@@ -47,7 +47,7 @@ export const LoginForm = () => {
                 <div className="form-group form-group-password">
                     <div className="password-title">
                         <label htmlFor="Password">Password</label>
-                        <a href="#/"><span>Forgot password??</span></a>
+                        <a href="#/"><span>Forgot password?</span></a>
                     </div>
 
                     <input className={errors.password ? 'form-control input-password is-invalid' : 'form-control input-password'}  {...register("password", { required: true, minLength: 6 })} />

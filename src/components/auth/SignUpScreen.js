@@ -7,11 +7,6 @@ export const SignUpScreen = () => {
     return (
 
         <div className="sign">
-            <div className="sign__info">
-                <h2>RepoApp</h2>
-                <p>See your application</p>
-
-            </div>
             <div className="sign__container-outer">
                 <div className="sign__container">
                     <div className="sign__header">
@@ -31,6 +26,12 @@ export const SignUpScreen = () => {
                         <Link to="/login">Log in now</Link>
                     </div>
                 </div>
+            </div>
+
+            <div className="auth-info sign__info">
+                <h2>RepoApp</h2>
+                <p>let it surprise you, and start to use RepoApp</p>
+
             </div>
         </div>
     )

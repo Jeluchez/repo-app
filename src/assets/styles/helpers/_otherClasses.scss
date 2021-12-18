@@ -3,8 +3,13 @@
     box-shadow:  #09e701 0px 0px 5px;
 }
 .is-invalid{
-    border: 1px solid #ff1919 !important;
-    box-shadow:  #ff1919 0px 0px 5px ;
+    // border: 1px solid $red !important;
+    background: $lred;
+    // box-shadow:  $red 0px 0px 5px ;
+}
+.text-danger{
+    color: lred;
+    font-size: 12px;
 }
 .hidden{
     display: none;

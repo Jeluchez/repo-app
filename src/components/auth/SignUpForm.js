@@ -57,7 +57,6 @@ export const SignUpForm = () => {
                 <div className="form-group form-group-password">
                     <div className="password-title">
                         <label htmlFor="Password">Password</label>
-                        <a href="#/"><span>Forgot password??</span></a>
                     </div>
 
                     <input className={errors.password ? 'form-control input-password is-invalid' : 'form-control input-password'}  {...register("password", { required: true, minLength: 6 })} />
@@ -69,16 +68,21 @@ export const SignUpForm = () => {
 
                 </div>
 
-                <div className="form-group form-group-check">
+                <div className="form-group ">
 
-                    <input {...register("checkbox", { required: true })} type="checkbox" />
+                    <div className='form-group-check'>
+                        <input className={errors.checkbox ? 'is-invalid' : ''} {...register("checkbox", { required: true })} type="checkbox" />
+                        <div className='terms'>
+                            <span >Creating an account means you’re okay with </span>
+                            <a href='/#'> our Terms & conditions</a>
+                        </div>
+                    </div>
 
-                    <span className='terms'>Creating an account means you’re okay with </span>
-                    <a href='/#'> our Terms & conditions</a>
+
 
                     {/*Validation Messages for ther Check  */}
 
-                    {errors.password && errors.password.type === "required" && <span className="text-danger text-error">This field is required</span>}
+                    {errors.checkbox && errors.checkbox.type === "required" && <span className="text-danger text-error">This field is required</span>}
 
                 </div>
 

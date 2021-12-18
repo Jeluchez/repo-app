@@ -1,9 +1,10 @@
 .sign {
     display: flex;
 
-    // justify-content: center;
     &__info {
-        display: none;
+       
+        background: $blue;
+        color: darken($blue, 40);
     }
 
 }
@@ -12,12 +13,13 @@
     padding: rem(15);
     flex: 1 auto;
     display: flex;
-    
+
     .sign__container {
         flex-basis: 400px;
         margin: auto;
     }
-    .sign__header{
+
+    .sign__header {
         margin-top: rem(30);
     }
 }
@@ -30,7 +32,7 @@
         margin-bottom: rem(5);
     }
 
-    .password-title {   
+    .password-title {
         display: flex;
         justify-content: space-between;
 
@@ -39,29 +41,51 @@
             margin-top: rem(15)
         }
     }
-    .btn-register{
+
+    .btn-register {
         margin-top: rem(10);
         background: $primary;
         color: #fff;
         width: 100%;
         margin-top: rem(20);
     }
-    .form-group-check{
+
+    .form-group-check {
         margin-top: rem(15);
-        input{
+        display: flex;
+
+        input {
             vertical-align: middle;
             margin-right: 5px;
-            font-size: 12px;
+            align-self: center;
         }
-        a{
-            text-decoration: none;
-            display: block;
+
+        .terms {
+            color: $font-gray;
             font-size: 12px;
+
+            a {
+                color: $google-blue;
+            }
         }
     }
 }
 
-.sign__footer{
+.sign__footer {
     text-align: center;
     margin-top: rem(20);
+
+    a {
+        color: $google-blue;
+        font-size: 14px;
+    }
+}
+
+@media  (min-width: 962px) {
+    .sign{
+        &__info {
+            display: block;
+        }
+    }
+   
 }
