@@ -11,9 +11,6 @@ export const SignUpScreen = () => {
                 <div className="sign__container">
                     <div className="sign__header">
                         <h2 className="title">Sign Up to RepoApp</h2>
-                        <div className="google">
-                            <h3>Acceder con google</h3>
-                        </div>
                     </div>
 
                     {/* form-wrapper */}
