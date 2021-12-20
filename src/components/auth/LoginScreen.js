@@ -9,9 +9,6 @@ export const LoginScreen = () => {
                 <div className="login__container">
                     <div className="login__header">
                         <h2 className="title">Log in to RepoApp</h2>
-                        <div className="google">
-                            <h3>Acceder con google</h3>
-                        </div>
                     </div>
 
                     {/* form-wrapper */}
