@@ -1,13 +1,13 @@
-import { Route, Navigate } from 'react-router-dom';
+import { useSelector } from 'react-redux';
+import { Navigate } from 'react-router-dom';
 
-const user = {
-    isLoggedIn: true
-}
 
 export const PublicRoute = ({ children }) => {
 
-    return user.isLoggedIn
-        ? children
-        : <Navigate to='/dashboard' />
+    const { isloggedIn } = useSelector(state => state.auth);
+
+    return isloggedIn
+        ? <Navigate to='/profile' />
+        : children
 }
 

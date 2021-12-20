@@ -1,37 +1,49 @@
-import { useRef, useState } from 'react'
+import { useRef } from 'react'
 import { useForm } from "react-hook-form";
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { startlogin } from '../../actions/authAction';
 
 
 export const LoginForm = () => {
 
+    const clientID = '53088d73f92fd54ccefe';
+    // let navigate = useNavigate();
     const dispatch = useDispatch();
-    
-    // const { isloading } = useSelector();
-    const isloading = false 
-    const { register, handleSubmit, formState: { errors } } = useForm();
-    const [success, setSuccess] = useState();
 
-    // flag to enable text "El correo o el usuario es incorrecto"
+    const isloading = false
+    const { register, handleSubmit, watch, formState: { errors } } = useForm();
+
+    const email = watch('email', 'Susana Paz');
+    const password = watch('password', '123456');
+
+    // flag to know if the btn "Send" was trigger
     const submitRef = useRef();
-    const isSuccessRef = useRef();
 
-    const onSubmit = (data) => dispatch(startlogin(data, (success) => {
-        submitRef.current=true;
-        isSuccessRef.current = success;
-        isSuccessRef.current=  isSuccessRef.current ? false :true 
-    }));;
+    const onSubmit = () => dispatch(startlogin({ email, password }, (res) => {
+       
+        if (!res.ok) {
+            submitRef.current = { isSend: true, code: res.code }
+            return;
+        }
+        window.location.href = `https://github.com/login/oauth/authorize?client_id=${clientID}`;
+
+    }));
+
 
     return (
         /* "handleSubmit" will validate your inputs before invoking "onSubmit" */
         <div className="login__form">
             {
-                (isSuccessRef.current && submitRef.current) &&
-                <p className="text-danger text-error mb-0 text-center">El correo o el usuario es incorrecto</p>
+                (submitRef.current?.code === 400 && submitRef.current.isSend) &&
+                <p className="text-danger text-error mb-0">the user not exists</p>
+
+            }
+            {
+                (submitRef.current?.code === 403 && submitRef.current.isSend) &&
+                <p className="text-danger text-error mb-0">the passwort isn't correct</p>
             }
             <form onSubmit={handleSubmit(onSubmit)}>
-
+                {/* <a href={`https://github.com/login/oauth/authorize?client_id=${clientID}`}>Github</a> */}
                 <div className="form-group form-group-email">
                     <label htmlFor="Email" className="email-title">Email Addres</label>
 
@@ -47,10 +59,10 @@ export const LoginForm = () => {
                 <div className="form-group form-group-password">
                     <div className="password-title">
                         <label htmlFor="Password">Password</label>
-                        <a href="#/"><span>Forgot password??</span></a>
+                        <a href="#/"><span>Forgot password?</span></a>
                     </div>
 
-                    <input className={errors.password ? 'form-control input-password is-invalid' : 'form-control input-password'}  {...register("password", { required: true, minLength: 6 })} />
+                    <input type="password" className={errors.password ? 'form-control input-password is-invalid' : 'form-control input-password'}  {...register("password", { required: true, minLength: 6 })} />
 
                     {/*Validation Messages for ther Password  */}
 
@@ -59,7 +71,7 @@ export const LoginForm = () => {
 
                 </div>
 
-                <button className="btn btn-register" /*disabled={isloading}*/>
+                <button type="submit" className="btn btn-register" /*disabled={isloading}*/>
                     {
                         isloading
                             ?
@@ -67,7 +79,7 @@ export const LoginForm = () => {
                                 <span className="sr-only"></span>
                             </div>
                             :
-                            'Iniciar'
+                            'Send'
 
                     }
 

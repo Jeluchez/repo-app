@@ -4,11 +4,7 @@ import { Link } from 'react-router-dom'
 export const LoginScreen = () => {
     return (
         <div className="login">
-            <div className="login__info">
-                <h2>RepoApp</h2>
-                <p>See your application</p>
-
-            </div>
+           
             <div className="login__container-outer">
                 <div className="login__container">
                     <div className="login__header">
@@ -28,6 +24,11 @@ export const LoginScreen = () => {
                         <Link to="/signup">Sign up now</Link>
                     </div>
                 </div>
+            </div>
+
+            <div className="auth-info login__info">
+                <h2>RepoApp</h2>
+                <p>let it surprise you, and start to use RepoApp</p>
             </div>
         </div>
     )

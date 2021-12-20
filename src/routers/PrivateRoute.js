@@ -1,12 +1,12 @@
-import { Route, Navigate } from 'react-router-dom';
+import { useSelector } from 'react-redux';
+import {  Navigate } from 'react-router-dom';
 
-const user = {
-    isLoggedIn: false
-}
 
 export const PrivateRoute = ({ children }) => {
 
-    return user.isLoggedIn
+    const { isloggedIn} = useSelector(state => state.auth);
+   
+    return isloggedIn
         ? children
         : <Navigate to='/login' />
 

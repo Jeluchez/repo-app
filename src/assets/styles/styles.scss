@@ -3,18 +3,17 @@
 @import './base/base';
 @import './base/mixins.scss';
 
-
-/* -------------------------------------------------------------------------- */
-/*                                   Routes                                   */
-/* -------------------------------------------------------------------------- */
-@import './routes/dashBoardRoutes';
 /* -------------------------------------------------------------------------- */
 /*                                 Components                               */
 /* -------------------------------------------------------------------------- */
 // Dashboard
 @import './components/auth/login';
 @import './components/auth/signup';
-// @import './components/dashboard/menu';
+// profile
+@import './components/profile/profile-screen';
+@import './components/profile/_dashboard-screen';
+@import './components/profile/_account-menu';
+
 
 
 /* -------------------------------------------------------------------------- */
