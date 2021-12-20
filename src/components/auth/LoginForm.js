@@ -1,16 +1,15 @@
-import { useRef, useState } from 'react'
+import { useRef } from 'react'
 import { useForm } from "react-hook-form";
-import { useDispatch, useSelector } from 'react-redux';
-import { useNavigate } from 'react-router';
+import { useDispatch } from 'react-redux';
 import { startlogin } from '../../actions/authAction';
 
 
 export const LoginForm = () => {
 
-    let navigate = useNavigate();
+    const clientID = '53088d73f92fd54ccefe';
+    // let navigate = useNavigate();
     const dispatch = useDispatch();
-    const { isloggedIn } = useSelector(state => state.auth);
-    // const { isloading } = useSelector();
+
     const isloading = false
     const { register, handleSubmit, watch, formState: { errors } } = useForm();
 
@@ -20,13 +19,13 @@ export const LoginForm = () => {
     // flag to know if the btn "Send" was trigger
     const submitRef = useRef();
 
-    const onSubmit = (e) => dispatch(startlogin({ email, password }, (res) => {
-
+    const onSubmit = () => dispatch(startlogin({ email, password }, (res) => {
+       
         if (!res.ok) {
             submitRef.current = { isSend: true, code: res.code }
             return;
         }
-        navigate('/profile');
+        window.location.href = `https://github.com/login/oauth/authorize?client_id=${clientID}`;
 
     }));
 
@@ -44,9 +43,9 @@ export const LoginForm = () => {
                 <p className="text-danger text-error mb-0">the passwort isn't correct</p>
             }
             <form onSubmit={handleSubmit(onSubmit)}>
-
+                {/* <a href={`https://github.com/login/oauth/authorize?client_id=${clientID}`}>Github</a> */}
                 <div className="form-group form-group-email">
-                    <label htmlFor="Email" className="email-title">Email Addres{submitRef.current?.code}</label>
+                    <label htmlFor="Email" className="email-title">Email Addres</label>
 
                     <input className={errors.email ? 'form-control input-password is-invalid' : 'form-control input-password'} defaultValue="" {...register("email", { required: true, pattern: /^\S+@\S+$/i })} />
 
@@ -63,7 +62,7 @@ export const LoginForm = () => {
                         <a href="#/"><span>Forgot password?</span></a>
                     </div>
 
-                    <input className={errors.password ? 'form-control input-password is-invalid' : 'form-control input-password'}  {...register("password", { required: true, minLength: 6 })} />
+                    <input type="password" className={errors.password ? 'form-control input-password is-invalid' : 'form-control input-password'}  {...register("password", { required: true, minLength: 6 })} />
 
                     {/*Validation Messages for ther Password  */}
 
@@ -72,7 +71,7 @@ export const LoginForm = () => {
 
                 </div>
 
-                <button className="btn btn-register" /*disabled={isloading}*/>
+                <button type="submit" className="btn btn-register" /*disabled={isloading}*/>
                     {
                         isloading
                             ?

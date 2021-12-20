@@ -14,7 +14,11 @@
 // Dashboard
 @import './components/auth/login';
 @import './components/auth/signup';
-// @import './components/dashboard/menu';
+// profile
+@import './components/profile/profile-screen';
+@import './components/profile/_dashboard-screen';
+@import './components/profile/_account-menu';
+
 
 
 /* -------------------------------------------------------------------------- */

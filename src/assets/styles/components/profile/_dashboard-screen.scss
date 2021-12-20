@@ -1,0 +1,106 @@
+.dashboard__nav {
+    background-color: $black;
+    height: 50px;
+}
+
+.dashboard__account {
+    position: relative;
+}
+
+.dashboard__search {
+    display: flex;
+    align-items: center;
+
+    i,
+    svg {
+        color: $lgray;
+    }
+}
+
+.btnAccount {
+    position: relative;
+    border-radius: 10px;
+    padding: 2px 9px;
+    border: 1px solid $lgray;
+    color: $gray;
+    transition: 0.3s all;
+    background-color: transparent;
+    font-size: 14px;
+
+    &:hover {
+        // background-color: rgba(#ffffff, 0.5);
+        box-shadow: 0px 0px 3px $lgray;
+    }
+
+    &:focus {
+        border: 1px solid $lgray;
+    }
+
+    span.isConnected {
+        position: absolute;
+        display: inline-block;
+        top: -3px;
+        right: -3px;
+        width: 10px;
+        height: 10px;
+        border-radius: 100%;
+    }
+
+    .isConnected--online {
+        background-color: #09e701;
+    }
+
+    // .isConnected--offline{
+    //     background-color: $lightblack;
+    // }
+}
+
+.favorite {
+    width: min-content;
+    margin-right: auto;
+
+    i {
+        margin-top: 5px;
+        font-size: 16px;
+        color: $yellow;
+    }
+}
+
+/* ---------------------------- REPOSITORIES LIST --------------------------- */
+.repositorieslist-inner{
+    // max-width: rem(900);
+    // margin: 0 auto;
+}
+/* -------------------------------- REPO ITEM ------------------------------- */
+.repoitem {
+    display: flex;
+    margin-top: rem(17);
+    transition: all .3s;
+    padding: 5px 10px;
+    border-radius: rem(15 );
+    .mark-favorite {
+        background: transparent;
+        border: none;
+        i {
+            color: $dyellow;
+        }
+        &:focus{
+            border: none;
+            outline: none;
+        }
+    }
+    &:hover{
+        background: $lgray;
+    }
+
+    .avatar-item {
+        margin-right: 10px;
+        max-width: 30px;
+        border-radius: 50%;
+    }
+
+    > * {
+        flex: 1 100%;
+    }
+}
+

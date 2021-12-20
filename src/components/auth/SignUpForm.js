@@ -2,7 +2,7 @@ import { useRef, useState } from 'react'
 import { useForm } from "react-hook-form";
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router';
-import { startlogin } from '../../actions/authAction';
+import { createUser, startlogin } from '../../actions/authAction';
 
 export const SignUpForm = () => {
 
@@ -27,13 +27,13 @@ export const SignUpForm = () => {
     const onSubmit = async (e) => {
         submitRef.current = true;
 
-        dispatch(startlogin({ name, email, password }, (res) => {
+        dispatch(createUser({ name, email, password }, (res) => {
 
-           
             if (!res.ok) {
-                isSuccessRef.current = res.code
+                isSuccessRef.current = false
+                return;
             }
-            navigate('/profile');
+            navigate('/login');
 
         }));
 
@@ -45,13 +45,9 @@ export const SignUpForm = () => {
     return (
         <div className="sign__form">
             {
-                (isSuccessRef.current === 400 && submitRef.current) &&
-                <p className="text-danger text-error mb-0 text-center">the user not exists</p>
+                (!isSuccessRef.current  && submitRef.current) &&
+                <p className="text-danger text-error mb-0 text-center">the User couldn't create</p>
 
-            }
-            {
-                (isSuccessRef.current === 403 && submitRef.current) &&
-                <p className="text-danger text-error mb-0 text-center">the passwort isn't correct</p>
             }
             <form onSubmit={handleSubmit(onSubmit)}>
 

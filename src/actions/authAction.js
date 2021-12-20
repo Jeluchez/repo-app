@@ -5,31 +5,29 @@ import { finishLoading, startLoading } from "./uiActions";
 export const createUser = (data, trigerSubmit) => {
 
     delete data.checkbox;
-    
+
     return async (dispatch) => {
 
         dispatch(startLoading())
-        console.log(data)
         const res = await fetchData('user/new', data, 'POST');
 
         if (res.ok) {
             const { uid, name, email } = res.user;
 
-            localStorage.setItem('token', res.token);
-
+            console.log(res);
             dispatch(login(
                 {
-                    id:uid,
+                    id: uid,
                     name,
                     email,
-                    isloggedIn:true,
-                    checking:false
+                    isloggedIn: false,
+                    checking: false
                 }
             ))
-            // trigerSubmit();
+            trigerSubmit(true);
             dispatch(finishLoading())
         } else {
-            // trigerSubmit();
+            trigerSubmit(true);
             dispatch(finishLoading())
         }
     }
@@ -41,33 +39,24 @@ export const createUser = (data, trigerSubmit) => {
 export const startlogin = (data, trigerSubmit) => {
 
     delete data.checkbox;
-    
+
     return async (dispatch) => {
 
         dispatch(startLoading())
-       
+
         const res = await fetchData('user/', data, 'POST');
         if (res.ok) {
-            const { uid, name, email} = res.user;
-            localStorage.setItem('token', res.token);
+            const { uid, name, email } = res.user;
 
-            dispatch(login(
-                {
-                    id:uid,
-                    name,
-                    email,
-                    isloggedIn:true,
-                    checking:false
-                }
-            ))
-            trigerSubmit(res) 
+            // localStorage.setItem('token', res.token);
+            trigerSubmit(res)
             dispatch(finishLoading())
         } else {
-            trigerSubmit(res) 
+            trigerSubmit(res)
             dispatch(finishLoading())
         }
 
-       
+
     }
 }
 
@@ -124,3 +113,15 @@ export const login = (user) => ({
     type: types.login,
     payload: user
 });
+
+export const startloginGithub = (user) => ({
+    type: types.loginGithub,
+    payload: user
+});
+
+export const logout = () => {
+    localStorage.removeItem('code');
+    return {
+        type: types.logout,
+    }
+}
